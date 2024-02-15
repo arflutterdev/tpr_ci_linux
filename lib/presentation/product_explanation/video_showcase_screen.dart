@@ -19,7 +19,7 @@ class _VideoShowCaseScreenState extends State<VideoShowCaseScreen> {
     // _controller = VideoPlayerController.asset(
     //     'assets/videos/Tamilnadu Forest Department _ Sathyamangalam Tiger Reserve.mp4');
     // Play a [Media] or [Playlist].
-    player.open(Media('https://user-images.githubusercontent.com/28951144/229373695-22f88f13-d18f-4288-9bf1-c3e078d83722.mp4'));
+    player.open(Media('assets/videos/Tamilnadu Forest Department _ Sathyamangalam Tiger Reserve.mp4'));
     super.initState();
   }
 

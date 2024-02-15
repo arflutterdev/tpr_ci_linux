@@ -14,10 +14,14 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: GestureDetector(
         onLongPress: () {
-          Future.delayed(const Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 5), () {
+            isProcessing.value = true;
+          });
+          Future.delayed(const Duration(seconds: 8), () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const VideoShowCaseScreen(),
             ));
+            isProcessing.value = false;
           });
         },
         child: Center(

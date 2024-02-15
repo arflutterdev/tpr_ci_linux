@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
+
 import 'package:tpr_control_interface_linux/presentation/control_interface_app.dart';
+import 'package:fvp/fvp.dart' as fvp;
 
 void main() {
   initVideoPlayerMediaKit();
@@ -9,6 +10,5 @@ void main() {
 
 initVideoPlayerMediaKit() {
   WidgetsFlutterBinding.ensureInitialized();
-  // Necessary initialization for package:media_kit.
-  MediaKit.ensureInitialized();
+  fvp.registerWith();
 }

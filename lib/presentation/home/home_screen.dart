@@ -10,20 +10,25 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var isProcessing = ValueNotifier(false);
+    var isInProgress = false;
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
-        onLongPress: () {
-          Future.delayed(const Duration(seconds: 5), () {
-            isProcessing.value = true;
-          });
-          Future.delayed(const Duration(seconds: 8), () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const VideoShowCaseScreen(),
-            ));
-            isProcessing.value = false;
-          });
-        },
+        onLongPress: isInProgress
+            ? null
+            : () {
+                isInProgress = true;
+                Future.delayed(const Duration(seconds: 5), () {
+                  isProcessing.value = true;
+                });
+                Future.delayed(const Duration(seconds: 8), () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const VideoShowCaseScreen(),
+                  ));
+                  isProcessing.value = false;
+                  isInProgress = false;
+                });
+              },
         child: Center(
           child: Column(
             children: [

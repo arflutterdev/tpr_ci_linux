@@ -37,9 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   rive: ^0.12.4
   lottie: ^2.7.0
-  media_kit: ^1.1.10+1
-  media_kit_video: ^1.2.4 
-  media_kit_libs_video: ^1.0.4     
+  fvp: ^0.14.0    
+  video_player: ^2.8.2
 
 dev_dependencies:
   flutter_test:

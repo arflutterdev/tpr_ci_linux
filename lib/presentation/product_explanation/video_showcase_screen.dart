@@ -25,13 +25,19 @@ class _VideoShowCaseScreenState extends State<VideoShowCaseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: Center(
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width * 9.0 / 16.0,
         // Use [Video] widget to display video output.
         child: Video(controller: controller),
       ),
+    ),
     );
   }
 

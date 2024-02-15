@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:tpr_control_interface_linux/presentation/control_interface_app.dart';
-import 'package:video_player_media_kit/video_player_media_kit.dart';
 
 void main() {
+  initVideoPlayerMediaKit();
   runApp(const ControlInterfaceApp());
 }
 
-initVideoPlayerMediaKit(){
-   VideoPlayerMediaKit.ensureInitialized(
-    linux: true,
-  );
+initVideoPlayerMediaKit() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Necessary initialization for package:media_kit.
+  MediaKit.ensureInitialized();
 }
-
-
-

@@ -20,7 +20,6 @@ class _VideoShowCaseScreenState extends State<VideoShowCaseScreen> {
         setState(() {});
         _controller.play();
       });
-
     super.initState();
   }
 

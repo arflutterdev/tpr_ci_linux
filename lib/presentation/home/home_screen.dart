@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
@@ -14,6 +16,23 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
+        onDoubleTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(title: const Text('Exit ?'), actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('No')),
+              TextButton(
+                  onPressed: () {
+                    exit(0);
+                  },
+                  child: const Text('yes'))
+            ]),
+          );
+        },
         onLongPress: isInProgress
             ? null
             : () {

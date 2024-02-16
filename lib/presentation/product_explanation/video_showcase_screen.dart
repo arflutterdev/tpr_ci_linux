@@ -15,7 +15,7 @@ class _VideoShowCaseScreenState extends State<VideoShowCaseScreen> {
   @override
   void initState() {
     _controller = VideoPlayerController.asset(
-        'assets/videos/forest.mp4')
+        'assets/videos/foresttamil.mp4')
       ..initialize().then((_) {
         setState(() {});
         _controller.play();

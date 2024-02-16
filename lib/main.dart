@@ -10,8 +10,8 @@ void main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions wo = WindowOptions(
-    alwaysOnTop: true,
-    fullScreen: true,
+    //alwaysOnTop: true,
+    //fullScreen: true,
     titleBarStyle: TitleBarStyle.hidden,
 
   );

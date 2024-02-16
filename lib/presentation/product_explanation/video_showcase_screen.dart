@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:fvp/fvp.dart' as fvp;
+import 'package:fvp/fvp.dart';
 
 class VideoShowCaseScreen extends StatefulWidget {
   const VideoShowCaseScreen({super.key});
@@ -12,13 +12,15 @@ class VideoShowCaseScreen extends StatefulWidget {
 class _VideoShowCaseScreenState extends State<VideoShowCaseScreen> {
   late VideoPlayerController _controller;
 
- 
   @override
   void initState() {
     _controller = VideoPlayerController.asset(
-        'assets/videos/Tamilnadu Forest Department _ Sathyamangalam Tiger Reserve.mp4');
+        'assets/videos/Tamilnadu Forest Department _ Sathyamangalam Tiger Reserve.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+        _controller.play();
+      });
     // Play a [Media] or [Playlist].
-  
     super.initState();
   }
 
@@ -30,14 +32,13 @@ class _VideoShowCaseScreenState extends State<VideoShowCaseScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: Center(
-      child: VideoPlayer(_controller),
-    ),
+        child: VideoPlayer(_controller),
+      ),
     );
   }
 
-   @override
+  @override
   void dispose() {
-    
     super.dispose();
   }
 }

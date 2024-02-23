@@ -1,10 +1,7 @@
-import 'dart:async';
+import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mjpeg/flutter_mjpeg.dart';
-import "package:webview_universal/webview_universal.dart";
-import 'package:http/http.dart' as http;
+import 'package:tpr_control_interface_linux/services/ros_service.dart';
 
 class FaceDetectionPreview extends StatefulWidget {
   const FaceDetectionPreview({super.key});
@@ -13,42 +10,40 @@ class FaceDetectionPreview extends StatefulWidget {
   State<FaceDetectionPreview> createState() => _FaceDetectionPreviewState();
 }
 
-const videoFeed = 'http://10.71.172.171:5000/video_feed';
-
 class _FaceDetectionPreviewState extends State<FaceDetectionPreview> {
-  WebViewController webViewController = WebViewController();
+  RosService rosService = RosService();
+  ValueNotifier<String> src = ValueNotifier<String>('');
   @override
   void initState() {
+    rosService.suscribeCameraPreview((img) {
+      src.value = img;
+    });
     super.initState();
-    task();
-  }
-
-  Future<void> task() async {
-    await webViewController.init(
-      context: context,
-      uri: Uri.parse(videoFeed),
-      setState: (void Function() fn) {
-        setState(() {});
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Camera Preview'),
+      ),
       body: Center(
-          child: SizedBox(
-            height: size.height*0.7,
-            width: size.width*0.7,
-        child: WebView(
-          controller: webViewController,
-        ),
+          child: ValueListenableBuilder(
+        valueListenable: src,
+        builder: (context, value, child) {
+          if (value.isEmpty) {
+            return Text('Unvilable');
+          } else {
+            return Image.memory(base64Decode(value));
+          }
+        },
       )),
     );
   }
 }
+
+
 
 // class ImageStream extends StatefulWidget {
 //   final String url;
@@ -117,3 +112,4 @@ class _FaceDetectionPreviewState extends State<FaceDetectionPreview> {
 //     );
 //   }
 // }
+

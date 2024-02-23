@@ -3,17 +3,39 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
+import 'package:tpr_control_interface_linux/models/robot_state.dart';
 import 'package:tpr_control_interface_linux/presentation/face_detection_preview/face_detection_preview.dart';
+import 'package:tpr_control_interface_linux/presentation/feature_launcher/feature_launcher_screen.dart';
 import 'package:tpr_control_interface_linux/presentation/product_explanation/video_showcase_screen.dart';
+import 'package:tpr_control_interface_linux/services/ros_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var rosService = RosService();
+  var isInteracting = ValueNotifier(false);
+  @override
+  void initState() {
+    rosService.suscribeToRobotState((state) {
+      if (state.state.isIdle && isInteracting.value) {
+        isInteracting.value = false;
+      }
+      if (state.state.isInteracting && !isInteracting.value) {
+        isInteracting.value = true;
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var isProcessing = ValueNotifier(false);
-    var isInProgress = false;
+    var isRosConnected = RosService().isConnected;
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
@@ -36,40 +58,25 @@ class HomeScreen extends StatelessWidget {
           );
         },
         onLongPress: () {
-          // if (isInProgress) {
-          //   return;
-          // }
-
-          // isInProgress = true;
-          // Future.delayed(const Duration(seconds: 5), () {
-          //   isProcessing.value = true;
-          // });
-          // Future.delayed(const Duration(seconds: 8), () {
-          //   Navigator.of(context).push(MaterialPageRoute(
-          //     builder: (context) => const VideoShowCaseScreen(),
-          //   ));
-          //   isProcessing.value = false;
-          //   isInProgress = false;
-          // });
-   Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const FaceDetectionPreview(),
-            ));
-        
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const FeatureLauncherScreen(),
+          ));
         },
         child: Center(
           child: Column(
             children: [
-              Container(
-                  // color: Colors.red,
-                  padding: const EdgeInsets.all(2),
-                  height: size.height * 0.67,
-                  width: double.infinity,
-                  child: const RiveAnimation.asset(
-                    'assets/rive/sq_eyeL.riv',
-                    fit: BoxFit.contain,
-                  )),
+              if (!isRosConnected) buildRosNotConnected(),
+                Container(
+                    // color: Colors.red,
+                    padding: const EdgeInsets.all(2),
+                    height: size.height * 0.67,
+                    width: double.infinity,
+                    child: const RiveAnimation.asset(
+                      'assets/rive/sq_eyeL.riv',
+                      fit: BoxFit.contain,
+                    )),
               ValueListenableBuilder(
-                valueListenable: isProcessing,
+                valueListenable: isInteracting,
                 builder: (context, value, child) {
                   if (value) {
                     return Padding(
@@ -90,5 +97,24 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget buildRosNotConnected() {
+    return Container(
+      padding: EdgeInsets.all(2),
+      color: Colors.red,
+      child:const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Ros Not Connected'),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    rosService.unsuscribeRobotState();
+    super.dispose();
   }
 }

@@ -17,8 +17,24 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var rosService = RosService();
   var isInteracting = ValueNotifier(false);
+  bool isSuscribed = false;
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      rosService.isRosConnected.addListener(() {
+        if (rosService.isConnected) {
+          if(!isSuscribed){
+            startSuscription();
+          }
+          
+        }
+      });
+    });
+    super.initState();
+  }
+
+  startSuscription() {
+    isSuscribed = true;
     rosService.suscribeToRobotState((state) {
       if (state.state.isIdle && isInteracting.value) {
         isInteracting.value = false;
@@ -27,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
         isInteracting.value = true;
       }
     });
-    super.initState();
   }
 
   @override

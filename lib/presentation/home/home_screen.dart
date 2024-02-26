@@ -113,12 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-              ValueListenableBuilder(
-                valueListenable: rosService.currentRobotStateLog,
-                builder: (context, value, child) {
-                  return Text(value);
-                },
-              ),
+              // ValueListenableBuilder(
+              //   valueListenable: rosService.currentRobotStateLog,
+              //   builder: (context, value, child) {
+              //     return Text(value);
+              //   },
+              // ),
             ],
           ),
         ),

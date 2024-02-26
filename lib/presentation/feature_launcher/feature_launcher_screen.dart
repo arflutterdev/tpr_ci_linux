@@ -17,7 +17,7 @@ class FeatureLauncherScreen extends StatelessWidget {
         child: GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: 1,
-              crossAxisCount: 3,
+              crossAxisCount: 5,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10),
           children: [
@@ -27,7 +27,7 @@ class FeatureLauncherScreen extends StatelessWidget {
             buildCard(text: 'Goto Location'),
             //buildCard(text: 'Live Translate'),
             buildCard(
-                text: 'Face Detection Preview',
+                text: 'Detection Preview',
                 ontap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const FaceDetectionPreview(),

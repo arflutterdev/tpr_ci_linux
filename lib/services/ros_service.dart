@@ -1,17 +1,20 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:roslibdart/roslibdart.dart';
 import 'package:tpr_control_interface_linux/models/robot_state.dart';
 import '../models/navigate_saved_locations.dart';
 
-const rosUrl = 'ws://locahost:9090';
+const rosUrl = 'ws://localhost:9090';
 //const rosUrl = 'ws://10.71.172.254:9090';//current
 //const rosUrl = 'ws://10.42.0.1:9090';
 
 class RosService {
-  static Ros _ros = Ros(url: rosUrl);
+  static final Ros _ros = Ros(url: rosUrl);
   static RosService? _instance;
   late Timer timer;
+
+  var isRosConnected = ValueNotifier(false);
 
   RosService._internal() {
     autoConnect();
@@ -20,6 +23,7 @@ class RosService {
 
   autoConnect() {
     timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      isRosConnected.value = isConnected;
       if (!isConnected) {
         connect();
       }

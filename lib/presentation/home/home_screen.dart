@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
 import 'package:tpr_control_interface_linux/models/robot_state.dart';
-import 'package:tpr_control_interface_linux/presentation/face_detection_preview/face_detection_preview.dart';
 import 'package:tpr_control_interface_linux/presentation/feature_launcher/feature_launcher_screen.dart';
-import 'package:tpr_control_interface_linux/presentation/product_explanation/video_showcase_screen.dart';
 import 'package:tpr_control_interface_linux/services/ros_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var isRosConnected = RosService().isConnected;
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
@@ -65,16 +62,25 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Column(
             children: [
-              if (!isRosConnected) buildRosNotConnected(),
-                Container(
-                    // color: Colors.red,
-                    padding: const EdgeInsets.all(2),
-                    height: size.height * 0.67,
-                    width: double.infinity,
-                    child: const RiveAnimation.asset(
-                      'assets/rive/sq_eyeL.riv',
-                      fit: BoxFit.contain,
-                    )),
+              ValueListenableBuilder(
+                valueListenable: rosService.isRosConnected,
+                builder: (context, value, child) {
+                  if (value) {
+                    return buildRosNotConnected();
+                  }else{
+                    return const SizedBox();
+                  }
+                },
+              ),
+              Container(
+                  // color: Colors.red,
+                  padding: const EdgeInsets.all(2),
+                  height: size.height * 0.67,
+                  width: double.infinity,
+                  child: const RiveAnimation.asset(
+                    'assets/rive/sq_eyeL.riv',
+                    fit: BoxFit.contain,
+                  )),
               ValueListenableBuilder(
                 valueListenable: isInteracting,
                 builder: (context, value, child) {
@@ -101,12 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget buildRosNotConnected() {
     return Container(
-      padding: EdgeInsets.all(2),
+      padding: const EdgeInsets.all(2),
       color: Colors.red,
-      child:const Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Ros Not Connected'),
+          Text('Ros Not Connected.. Retrying ..'),
         ],
       ),
     );

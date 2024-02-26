@@ -2,7 +2,8 @@ import 'package:roslibdart/roslibdart.dart';
 import 'package:tpr_control_interface_linux/models/robot_state.dart';
 import '../models/navigate_saved_locations.dart';
 
-const rosUrl = 'ws://10.71.172.254:9090';
+const rosUrl = 'ws://locahost:9090';
+//const rosUrl = 'ws://10.71.172.254:9090';//current
 //const rosUrl = 'ws://10.42.0.1:9090';
 
 class RosService {

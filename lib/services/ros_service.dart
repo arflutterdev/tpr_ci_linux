@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:roslibdart/roslibdart.dart';
 import 'package:tpr_control_interface_linux/models/robot_state.dart';
 import '../models/navigate_saved_locations.dart';
@@ -9,9 +11,23 @@ const rosUrl = 'ws://locahost:9090';
 class RosService {
   static Ros _ros = Ros(url: rosUrl);
   static RosService? _instance;
+  late Timer timer;
 
   RosService._internal() {
-    connect();
+    autoConnect();
+    //connect();
+  }
+
+  autoConnect() {
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      if (!isConnected) {
+        connect();
+      }
+    });
+  }
+
+  disposeTimer() {
+    timer.cancel();
   }
 
   connect() {
@@ -20,7 +36,7 @@ class RosService {
   }
 
   bool get isConnected {
-   return _ros.status == Status.connected;
+    return _ros.status == Status.connected;
   }
 
   factory RosService() {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:tpr_control_interface_linux/services/ros_service.dart';
@@ -12,10 +13,10 @@ class FaceDetectionPreview extends StatefulWidget {
 
 class _FaceDetectionPreviewState extends State<FaceDetectionPreview> {
   RosService rosService = RosService();
-  ValueNotifier<String> src = ValueNotifier<String>('');
+  ValueNotifier<String> src = ValueNotifier('');
   @override
   void initState() {
-    rosService.suscribeCameraPreview((img) {
+    rosService.suscribeCameraPreview((img) async {
       src.value = img;
     });
     super.initState();
@@ -26,16 +27,16 @@ class _FaceDetectionPreviewState extends State<FaceDetectionPreview> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Camera Preview'),
+        title: const Text('Camera Preview'),
       ),
       body: Center(
           child: ValueListenableBuilder(
         valueListenable: src,
         builder: (context, value, child) {
           if (value.isEmpty) {
-            return Text('Unvilable');
+            return const Text('Unavilable');
           } else {
-            return Image.memory(base64Decode(value));
+            return Image.memory(base64Decode(value),gaplessPlayback: true,);
           }
         },
       )),

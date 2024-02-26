@@ -5,8 +5,8 @@ import 'package:roslibdart/roslibdart.dart';
 import 'package:tpr_control_interface_linux/models/robot_state.dart';
 import '../models/navigate_saved_locations.dart';
 
-const rosUrl = 'ws://localhost:9090';
-//const rosUrl = 'ws://10.71.172.254:9090';//current
+//const rosUrl = 'ws://localhost:9090';
+const rosUrl = 'ws://10.71.172.254:9090';//current
 //const rosUrl = 'ws://10.42.0.1:9090';
 
 class RosService {
@@ -85,10 +85,11 @@ class RosService {
     type: "std_msgs/String",
     reconnectOnClose: true,
   );
-  var camera = Topic(
+  var faces = Topic(
     ros: _ros,
-    name: '/camera',
-    type: "sensor_msgs/Image",
+    name: '/faces',
+    type: "std_msgs/String",
+   // type: "sensor_msgs/Image",
     reconnectOnClose: true,
   );
 
@@ -138,7 +139,7 @@ class RosService {
   }
 
   suscribeCameraPreview(Function(String src) onFrameChange) async {
-    camera.subscribe((args) async {
+    faces.subscribe((args) async {
       print("camera: ${args["data"]}");
       onFrameChange(args['data']);
     });
@@ -153,6 +154,6 @@ class RosService {
   }
 
   unsuscribeCameraPreview() {
-    camera.unsubscribe();
+    faces.unsubscribe();
   }
 }

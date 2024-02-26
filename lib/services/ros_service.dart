@@ -16,6 +16,9 @@ class RosService {
 
   var isRosConnected = ValueNotifier(false);
 
+  ///state idle/interacting
+  var currentRobotStateLog = ValueNotifier('initial');
+
   RosService._internal() {
     autoConnect();
     //connect();
@@ -48,7 +51,7 @@ class RosService {
     return _instance!;
   }
 
-  //topics
+  // topics
   var cmdVel = Topic(
     ros: _ros,
     name: '/cmd_vel',
@@ -129,6 +132,7 @@ class RosService {
   suscribeToRobotState(Function(RobotState state) onStateChange) async {
     robotState.subscribe((args) async {
       print(args['data']);
+      currentRobotStateLog.value='${args['data']}';
       onStateChange(RobotState.fromString(args['data']));
     });
   }

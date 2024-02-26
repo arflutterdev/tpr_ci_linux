@@ -65,9 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ValueListenableBuilder(
                 valueListenable: rosService.isRosConnected,
                 builder: (context, value, child) {
-                  if (value) {
+                  if (!value) {
                     return buildRosNotConnected();
-                  }else{
+                  } else {
                     return const SizedBox();
                   }
                 },
@@ -97,7 +97,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const SizedBox();
                   }
                 },
-              )
+              ),
+              ValueListenableBuilder(
+                valueListenable: rosService.currentRobotStateLog,
+                builder: (context, value, child) {
+                  return Text(value);
+                },
+              ),
             ],
           ),
         ),

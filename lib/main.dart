@@ -7,20 +7,20 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Must add this line.
-  // await windowManager.ensureInitialized();
+  //Must add this line.
+  await windowManager.ensureInitialized();
 
-  // WindowOptions wo = WindowOptions(
-  //   alwaysOnTop: true,
-  //   fullScreen: true,
-  //   titleBarStyle: TitleBarStyle.hidden,
+  WindowOptions wo = WindowOptions(
+    alwaysOnTop: true,
+    fullScreen: true,
+    titleBarStyle: TitleBarStyle.hidden,
 
-  // );
+  );
 
-  //   windowManager.waitUntilReadyToShow(wo, () async {
-  //   await windowManager.show();
-  //   await windowManager.focus();
-  // });
+    windowManager.waitUntilReadyToShow(wo, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
 
   initVideoPlayerMediaKit();
   runApp(const ControlInterfaceApp());

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tpr_control_interface_linux/presentation/face_detection_preview/face_detection_preview.dart';
-import 'package:tpr_control_interface_linux/presentation/volume_control/volume_control_screen.dart';
+//import 'package:tpr_control_interface_linux/presentation/volume_control/volume_control_screen.dart';
 
 class FeatureLauncherScreen extends StatelessWidget {
   const FeatureLauncherScreen({super.key});
@@ -25,7 +25,7 @@ class FeatureLauncherScreen extends StatelessWidget {
             buildCard(text: 'Map Location'),
             buildCard(text: 'Save Location'),
             buildCard(text: 'Goto Location'),
-            buildCard(text: 'Live Translate'),
+            //buildCard(text: 'Live Translate'),
             buildCard(
                 text: 'Face Detection Preview',
                 ontap: () {
@@ -33,13 +33,13 @@ class FeatureLauncherScreen extends StatelessWidget {
                     builder: (context) => const FaceDetectionPreview(),
                   ));
                 }),
-            buildCard(
-                text: 'Sound',
-                ontap: () {
-                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const VolumeControlScreen(),
-                  ));
-                })
+            // buildCard(
+            //     text: 'Sound',
+            //     ontap: () {
+            //        Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => const VolumeControlScreen(),
+            //       ));
+            //     })
           ],
         ),
       ),

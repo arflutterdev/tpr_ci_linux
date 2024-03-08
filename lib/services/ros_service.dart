@@ -20,7 +20,7 @@ class RosService {
   var currentRobotStateLog = ValueNotifier('initial');
 
   RosService._internal() {
-    autoConnect();
+    //autoConnect();
     //connect();
   }
 

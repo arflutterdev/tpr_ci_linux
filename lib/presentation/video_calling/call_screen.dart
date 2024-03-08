@@ -79,6 +79,7 @@ class _CallScreenState extends State<CallScreen> {
   }
 
   _leave() async {
+    widget.callSession.hungUp();
     await widget.callSession.closeCurrentSession();
     maybePop(context);
   }
@@ -90,6 +91,7 @@ class _CallScreenState extends State<CallScreen> {
         appBar: AppBar(),
         body: buildUi(),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red.shade50,
           onPressed: () {
             _leave();
           },
@@ -109,29 +111,29 @@ class _CallScreenState extends State<CallScreen> {
         if (remotevideoView == null && localvideoView == null) connecting(),
         remoteStream(),
         localStream(),
-        toolBar()
+       // toolBar()
       ],
     );
   }
 
-  Widget toolBar() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  isMuted = !isMuted;
-                  widget.callSession.setMicrophoneMute(isMuted);
-                });
-              },
-              icon: Icon(isMuted ? Icons.mic_off_outlined : Icons.mic))
-        ],
-      ),
-    );
-  }
+  // Widget toolBar() {
+  //   return Align(
+  //     alignment: Alignment.bottomCenter,
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       children: [
+  //         IconButton(
+  //             onPressed: () {
+  //               setState(() {
+  //                 isMuted = !isMuted;
+  //                 widget.callSession.setMicrophoneMute(isMuted);
+  //               });
+  //             },
+  //             icon: Icon(isMuted ? Icons.mic_off_outlined : Icons.mic))
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget connecting() {
     return const Center(

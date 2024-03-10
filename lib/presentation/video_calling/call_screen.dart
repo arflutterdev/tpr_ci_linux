@@ -90,6 +90,7 @@ class _CallScreenState extends State<CallScreen> {
       child: Scaffold(
         appBar: AppBar(),
         body: buildUi(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red.shade50,
           onPressed: () {
@@ -111,7 +112,7 @@ class _CallScreenState extends State<CallScreen> {
         if (remotevideoView == null && localvideoView == null) connecting(),
         remoteStream(),
         localStream(),
-       // toolBar()
+        // toolBar()
       ],
     );
   }

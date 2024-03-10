@@ -15,6 +15,11 @@ class IncomingCallScreen extends StatelessWidget {
       incommingcallSession.closeCurrentSession();
       pop(context);
     };
+    incommingcallSession.onReceiveHungUpFromUser =
+        (session, userId, [userInfo]) {
+      incommingcallSession.closeCurrentSession();
+      maybePop(context);
+    };
     return Scaffold(
       appBar: AppBar(),
       body: Column(

@@ -89,7 +89,20 @@ class RosService {
     ros: _ros,
     name: '/faces',
     type: "std_msgs/String",
-   // type: "sensor_msgs/Image",
+    // type: "sensor_msgs/Image",
+    reconnectOnClose: true,
+  );
+
+  var controlFollowMe = Topic(
+    ros: _ros,
+    name: '/ctrlfollowme',
+    type: "std_msgs/String",
+    reconnectOnClose: true,
+  );
+  var controlFaces = Topic(
+    ros: _ros,
+    name: '/ctrlfaces',
+    type: "std_msgs/String",
     reconnectOnClose: true,
   );
 
@@ -133,7 +146,7 @@ class RosService {
   suscribeToRobotState(Function(RobotState state) onStateChange) async {
     robotState.subscribe((args) async {
       print(args['data']);
-      currentRobotStateLog.value='${args['data']}';
+      currentRobotStateLog.value = '${args['data']}';
       onStateChange(RobotState.fromString(args['data']));
     });
   }
@@ -143,6 +156,16 @@ class RosService {
       print("camera: ${args["data"]}");
       onFrameChange(args['data']);
     });
+  }
+
+  triggerFollowMe(bool start) async {
+    Map<String, dynamic> json = {"data": start ? 'start' : 'stop'};
+    return await controlFollowMe.publish(json);
+  }
+
+  triggerFaces(bool start) async {
+    Map<String, dynamic> json = {"data": start ? 'start' : 'stop'};
+    return await controlFaces.publish(json);
   }
 
   unsuscribeSavedLocations() {

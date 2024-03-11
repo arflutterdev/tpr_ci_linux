@@ -23,6 +23,12 @@ class _FaceDetectionPreviewState extends State<FaceDetectionPreview> {
   }
 
   @override
+  void dispose() {
+    RosService().triggerFaces(false);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -36,7 +42,10 @@ class _FaceDetectionPreviewState extends State<FaceDetectionPreview> {
           if (value.isEmpty) {
             return const Text('Unavilable');
           } else {
-            return Image.memory(base64Decode(value),gaplessPlayback: true,);
+            return Image.memory(
+              base64Decode(value),
+              gaplessPlayback: true,
+            );
           }
         },
       )),

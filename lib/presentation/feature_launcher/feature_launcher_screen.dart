@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tpr_control_interface_linux/presentation/face_detection_preview/face_detection_preview.dart';
 import 'package:tpr_control_interface_linux/presentation/follow_me/follow_me_screen.dart';
+import 'package:tpr_control_interface_linux/services/ros_service.dart';
 import 'package:tpr_control_interface_linux/utils/navigation_utils.dart';
 //import 'package:tpr_control_interface_linux/presentation/volume_control/volume_control_screen.dart';
 
@@ -23,7 +24,9 @@ class FeatureLauncherScreen extends StatelessWidget {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10),
           children: [
-            buildCard(text: 'Follow Me',ontap: ()=>navigateTo(context,const FollowMeScreen())),
+            buildCard(
+                text: 'Follow Me',
+                ontap: () => navigateTo(context, const FollowMeScreen())),
             buildCard(text: 'Map Location'),
             buildCard(text: 'Save Location'),
             buildCard(text: 'Goto Location'),
@@ -31,6 +34,7 @@ class FeatureLauncherScreen extends StatelessWidget {
             buildCard(
                 text: 'Face Detection',
                 ontap: () {
+                  RosService().triggerFaces(true);
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const FaceDetectionPreview(),
                   ));

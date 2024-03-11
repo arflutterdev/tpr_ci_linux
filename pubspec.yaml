@@ -37,8 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   rive: ^0.12.4
   lottie: ^2.7.0
-  fvp: ^0.14.0    
-  video_player: ^2.8.2
+  #fvp: ^0.14.0    
+  #video_player: ^2.8.2
   window_manager: ^0.3.8
   roslibdart: ^0.0.1-dev+4
   connectycube_sdk: ^2.11.2

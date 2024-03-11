@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:tpr_control_interface_linux/presentation/control_interface_app.dart';
-import 'package:fvp/fvp.dart' as fvp;
+// import 'package:fvp/fvp.dart' as fvp;
 import 'package:tpr_control_interface_linux/services/ros_service.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -22,14 +22,14 @@ void main() async {
   //   await windowManager.focus();
   // });
 
-  initVideoPlayerMediaKit();
+ // initVideoPlayerMediaKit();
   runApp(const ControlInterfaceApp());
 }
 
-initVideoPlayerMediaKit() {
-  WidgetsFlutterBinding.ensureInitialized();
-  fvp.registerWith();
-}
+// initVideoPlayerMediaKit() {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   fvp.registerWith();
+// }
 
 initRos() {
   RosService();

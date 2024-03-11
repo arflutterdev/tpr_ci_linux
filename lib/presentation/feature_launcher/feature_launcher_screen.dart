@@ -29,7 +29,7 @@ class FeatureLauncherScreen extends StatelessWidget {
             buildCard(text: 'Goto Location'),
             //buildCard(text: 'Live Translate'),
             buildCard(
-                text: 'Detection Preview',
+                text: 'Face Detection',
                 ontap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const FaceDetectionPreview(),

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tpr_control_interface_linux/presentation/face_detection_preview/face_detection_preview.dart';
 import 'package:tpr_control_interface_linux/presentation/follow_me/follow_me_screen.dart';
+import 'package:tpr_control_interface_linux/presentation/retell_ai/retell_ai_screen.dart';
 import 'package:tpr_control_interface_linux/services/ros_service.dart';
 import 'package:tpr_control_interface_linux/utils/navigation_utils.dart';
 //import 'package:tpr_control_interface_linux/presentation/volume_control/volume_control_screen.dart';
@@ -28,8 +29,12 @@ class FeatureLauncherScreen extends StatelessWidget {
                 text: 'Follow Me',
                 ontap: () => navigateTo(context, const FollowMeScreen())),
             buildCard(text: 'Map Location'),
-            buildCard(text: 'Save Location'),
-            buildCard(text: 'Goto Location'),
+            // buildCard(text: 'Save Location'),
+            buildCard(
+                text: 'Converse',
+                ontap: () {
+                  navigateTo(context, const RetellAiScreen());
+                }),
             //buildCard(text: 'Live Translate'),
             buildCard(
                 text: 'Face Detection',
